@@ -3,6 +3,7 @@ pytz==2017.2
 dj-database-url==0.4.2
 dj-static==0.0.6
 django-toolbelt==0.0.1
+djangorestframework==3.6.3
 gunicorn==19.7.1
 psycopg2==2.7.1
 static3==0.7.0
