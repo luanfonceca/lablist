@@ -123,7 +123,7 @@ class TaskUpdatViewTest(BaseTaskViewTest):
         self.assertEqual(response.json(), serializer.data)
 
 
-class ToDoLisDestroyViewTest(BaseTaskViewTest):
+class TaskDestroyViewTest(BaseTaskViewTest):
     def setUp(self):
         self.task = mommy.make(Task, title='Example task 1')
 
@@ -134,3 +134,47 @@ class ToDoLisDestroyViewTest(BaseTaskViewTest):
         self.assertEqual(
             response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response.data, None)
+
+
+class TaskSortViewTest(BaseTaskViewTest):
+    def setUp(self):
+        self.todolist = mommy.make(ToDoList, title='Example list 1')
+        self.task1 = mommy.make(
+            Task, title='Example task 1', order=0,
+            todolist=self.todolist)
+        self.task2 = mommy.make(
+            Task, title='Example task 2', order=1,
+            todolist=self.todolist)
+        self.task3 = mommy.make(
+            Task, title='Example task 3', order=2,
+            todolist=self.todolist)
+        self.task4 = mommy.make(
+            Task, title='Example task 4', order=3,
+            todolist=self.todolist)
+
+    def test_empty_params_to_sort_view(self):
+        data = {}
+        response = self.client.patch(
+            reverse('task:sort', kwargs={'pk': self.task2.pk}),
+            json.dumps(data), 'application/json')
+
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_sort(self):
+        data = {
+            'old_task': self.task2.pk,
+        }
+        response = self.client.patch(
+            reverse('task:sort', kwargs={'pk': self.task4.pk}),
+            json.dumps(data), 'application/json')
+
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK)
+
+        excpect_data = [
+            TaskSerializer(task).data
+            for task in Task.objects.all()
+        ]
+        response = self.client.get(reverse('task:list'))
+        self.assertEqual(response.json(), excpect_data)

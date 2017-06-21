@@ -8,4 +8,7 @@ urlpatterns = [
     url(regex=r'^(?P<pk>[\d+]+)/$',
         view=views.TaskApiView.as_view(),
         name='detail'),
+    url(regex=r'^(?P<pk>[\d+]+)/sort/$',
+        view=views.TaskApiSortView.as_view(),
+        name='sort'),
 ]

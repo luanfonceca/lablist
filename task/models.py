@@ -20,6 +20,21 @@ class Task(models.Model):
     class Meta:
         verbose_name = 'Task'
         verbose_name_plural = 'Tasks'
+        ordering = ['order']
 
     def __str__(self):
         return self.title
+
+    def sort(self, old_task):
+        tasks = self.todolist.tasks.exclude(pk=self.pk)
+        if self.order > old_task.order:
+            tasks.filter(
+                order__gte=old_task.order
+            ).update(order=models.F('order') + 1)
+        elif self.order < old_task.order:
+            tasks.filter(
+                order__lte=old_task.order
+            ).update(order=models.F('order') - 1)
+
+        self.order = old_task.order
+        self.save()
