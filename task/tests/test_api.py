@@ -61,7 +61,7 @@ class TaskCreateViewTest(BaseTaskViewTest):
 
         self.assertEqual(
             response.status_code, status.HTTP_201_CREATED)
-        serializer = TaskSerializer(Task.objects.first())
+        serializer = TaskSerializer(Task.objects.get(pk=1))
         self.assertEqual(response.json(), serializer.data)
 
     def test_create_duplicated_titles(self):
@@ -77,7 +77,7 @@ class TaskCreateViewTest(BaseTaskViewTest):
 
         self.assertEqual(
             response.status_code, status.HTTP_201_CREATED)
-        serializer = TaskSerializer(Task.objects.last())
+        serializer = TaskSerializer(Task.objects.get(pk=2))
         self.assertEqual(response.json(), serializer.data)
 
 
@@ -119,7 +119,7 @@ class TaskUpdatViewTest(BaseTaskViewTest):
 
         self.assertEqual(
             response.status_code, status.HTTP_200_OK)
-        serializer = TaskSerializer(Task.objects.first())
+        serializer = TaskSerializer(Task.objects.get(pk=1))
         self.assertEqual(response.json(), serializer.data)
 
 
@@ -159,7 +159,7 @@ class TaskSortViewTest(BaseTaskViewTest):
             json.dumps(data), 'application/json')
 
         self.assertEqual(
-            response.status_code, status.HTTP_400_BAD_REQUEST)
+            response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_sort(self):
         data = {
@@ -193,6 +193,6 @@ class TaskMarkAsDoneViewTest(BaseTaskViewTest):
 
         self.assertEqual(
             response.status_code, status.HTTP_200_OK)
-        serializer = TaskSerializer(Task.objects.first())
+        serializer = TaskSerializer(Task.objects.get(pk=1))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json(), serializer.data)
