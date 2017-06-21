@@ -1,5 +1,6 @@
-from django.test import TestCase
+import json
 
+from django.test import TestCase
 from rest_framework import status
 from rest_framework.reverse import reverse
 from model_mommy import mommy
@@ -73,3 +74,27 @@ class ToDoListDetailViewTest(TestCase):
         serializer = ToDoListSerializer(todolist)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json(), serializer.data)
+
+
+class ToDoListUpdatViewTest(TestCase):
+    def setUp(self):
+        self.todolist = mommy.make(ToDoList, title='Example list 1')
+
+    def test_update(self):
+        response = self.client.put(
+            reverse('todolist:detail', kwargs={'pk': self.todolist.pk}),
+            json.dumps({'title': 'Example list 0'}),
+            'application/json')
+
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK)
+        serializer = ToDoListSerializer(ToDoList.objects.first())
+        self.assertEqual(response.json(), serializer.data)
+
+    def test_fail_on_title_required(self):
+        response = self.client.put(
+            reverse('todolist:detail', kwargs={'pk': self.todolist.pk}),
+            json.dumps({}), 'application/json')
+
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST)
