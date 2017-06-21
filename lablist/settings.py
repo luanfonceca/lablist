@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # Project apps
     'todolist',
+    'task',
 
     # External apps
     'rest_framework',

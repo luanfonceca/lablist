@@ -19,6 +19,8 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^api/lists/', include(
-        'todolist.urls', namespace='todolist')),
+    url(r'^api/lists/',
+        include('todolist.urls', namespace='todolist')),
+    url(r'^api/tasks/',
+        include('task.urls', namespace='task')),
 ]
