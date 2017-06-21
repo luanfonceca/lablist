@@ -38,3 +38,7 @@ class Task(models.Model):
 
         self.order = old_task.order
         self.save()
+
+    def mark_as_done(self):
+        self.is_done = True
+        self.save()

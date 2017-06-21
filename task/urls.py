@@ -9,6 +9,9 @@ urlpatterns = [
         view=views.TaskApiView.as_view(),
         name='detail'),
     url(regex=r'^(?P<pk>[\d+]+)/sort/$',
-        view=views.TaskApiSortView.as_view(),
+        view=views.TaskSortApiView.as_view(),
         name='sort'),
+    url(regex=r'^(?P<pk>[\d+]+)/mark_as_done/$',
+        view=views.TaskMarkAsDoneApiView.as_view(),
+        name='mark_as_done'),
 ]

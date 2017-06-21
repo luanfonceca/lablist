@@ -178,3 +178,21 @@ class TaskSortViewTest(BaseTaskViewTest):
         ]
         response = self.client.get(reverse('task:list'))
         self.assertEqual(response.json(), excpect_data)
+
+
+class TaskMarkAsDoneViewTest(BaseTaskViewTest):
+    def setUp(self):
+        self.todolist = mommy.make(ToDoList, title='Example list 1')
+        self.task = mommy.make(
+            Task, title='Example task 1', todolist=self.todolist)
+
+    def test_destroy(self):
+        response = self.client.patch(
+            reverse('task:mark_as_done', kwargs={'pk': self.task.pk}),
+            json.dumps({}), 'application/json')
+
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK)
+        serializer = TaskSerializer(Task.objects.first())
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json(), serializer.data)
