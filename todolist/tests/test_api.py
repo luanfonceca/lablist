@@ -24,6 +24,36 @@ class ToDoListListViewTest(TestCase):
         self.assertEqual(response.json(), [serializer.data])
 
 
+class ToDoListCreateViewTest(TestCase):
+    def test_fail_on_title_required(self):
+        response = self.client.post(reverse('todolist:list'))
+
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create(self):
+        response = self.client.post(
+            reverse('todolist:list'),
+            {'title': 'Example list 1'})
+
+        self.assertEqual(
+            response.status_code, status.HTTP_201_CREATED)
+        serializer = ToDoListSerializer(ToDoList.objects.first())
+        self.assertEqual(response.json(), serializer.data)
+
+    def test_create_duplicated_titles(self):
+        mommy.make(ToDoList, title='Example list 1')
+
+        response = self.client.post(
+            reverse('todolist:list'),
+            {'title': 'Example list 1'})
+
+        self.assertEqual(
+            response.status_code, status.HTTP_201_CREATED)
+        serializer = ToDoListSerializer(ToDoList.objects.last())
+        self.assertEqual(response.json(), serializer.data)
+
+
 class ToDoListDetailViewTest(TestCase):
     def setUp(self):
         self.todolist = mommy.make(ToDoList, title='Example list 1')

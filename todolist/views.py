@@ -9,7 +9,8 @@ class BaseToDoListView():
     serializer_class = ToDoListSerializer
 
 
-class ToDoListListApiView(BaseToDoListView, generics.ListAPIView):
+class ToDoListListApiView(BaseToDoListView,
+                          generics.ListCreateAPIView):
     pass
 
 
