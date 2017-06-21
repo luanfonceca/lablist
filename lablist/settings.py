@@ -43,6 +43,9 @@ INSTALLED_APPS = [
 
     # Project apps
     'todolist',
+
+    # External apps
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
