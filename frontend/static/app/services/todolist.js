@@ -4,7 +4,7 @@ app.factory('toDoListApiFactory', ['$http', function($http){
   var urlBase = '/api/lists/';
   var toDoListApiFactory = {};
 
-  toDoListApiFactory.getToDoLists = function(){
+  toDoListApiFactory.getToDoListByIds = function(){
     return $http.get(urlBase);
   };
 
@@ -12,7 +12,7 @@ app.factory('toDoListApiFactory', ['$http', function($http){
     return $http.post(urlBase, todolist);
   };
 
-  toDoListApiFactory.getToDoList = function(id){
+  toDoListApiFactory.getToDoListById = function(id){
     var url = urlBase + id + '/';
     return $http.get(url);
   };
@@ -20,6 +20,12 @@ app.factory('toDoListApiFactory', ['$http', function($http){
   toDoListApiFactory.updateToDoList = function(todolist){
     var url = urlBase + todolist.id + '/';
     return $http.patch(url, todolist);
+  };
+
+  toDoListApiFactory.deleteToDoListById = function(id){
+    debugger;
+    var url = urlBase + id + '/';
+    return $http.delete(url);
   };
 
   return toDoListApiFactory;

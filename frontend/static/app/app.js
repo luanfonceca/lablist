@@ -1,5 +1,9 @@
 var app = angular.module('lablist', [
+  // External libs
   'ui.router',
+  'oitozero.ngSweetAlert',
+
+  // LabList
   'lablist.controllers',
   'lablist.services',
 ]);

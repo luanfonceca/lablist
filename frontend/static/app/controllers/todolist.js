@@ -1,16 +1,30 @@
 var app = angular.module('lablist.controllers', []);
 
 app.controller('listToDoListController', [
-  '$scope', 'toDoListApiFactory',
-  function($scope, toDoListApiFactory){
+  '$scope', 'toDoListApiFactory', 'SweetAlert',
+  function($scope, toDoListApiFactory, SweetAlert){
     $scope.lists = [];
 
-    getToDoLists();
-    function getToDoLists(){
-      toDoListApiFactory.getToDoLists().then(function(response){
+    getToDoListByIds();
+    function getToDoListByIds(){
+      toDoListApiFactory.getToDoListByIds().then(function(response){
         $scope.lists = response.data;
       }, function (error){
         $scope.status = 'Unable to load lists: ' + error.message;
+      });
+    }
+
+    $scope.delete = function(id){
+      SweetAlert.swal({
+        title: 'Are you sure?',
+        text: 'Your will not be able to undo this action!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes, delete it!',
+        closeOnConfirm: true,
+      }, function(){
+        toDoListApiFactory.deleteToDoListById(id);
       });
     }
   }]
@@ -41,9 +55,9 @@ app.controller('updateToDoListController',
 
     $scope.todolist = null;
 
-    getToDoList();
-    function getToDoList(){
-      toDoListApiFactory.getToDoList($stateParams.id).then(function(response){
+    getToDoListById();
+    function getToDoListById(){
+      toDoListApiFactory.getToDoListById($stateParams.id).then(function(response){
         $scope.todolist = response.data;
       }, function (error){
         $scope.status = 'Unable to load list: ' + error.message;

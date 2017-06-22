@@ -21,9 +21,15 @@
     <div class="list-group-item" ng-repeat="list in lists">
       <div class="btn-toolbar pull-right">
         <div class="btn-group" role="group" aria-label="...">
-          <a href="#" class="btn btn-sm btn-default">Tasks</a>
-          <a ui-sref='update({ id: list.id })' class="btn btn-sm btn-default">Update</a>
-          <a href="#" class="btn btn-sm btn-default">Delete</a>
+          <a href="#" class="btn btn-sm btn-default">
+            Tasks
+          </a>
+          <a ui-sref='update({id: list.id})' class="btn btn-sm btn-default">
+            Update
+          </a>
+          <a ng-click="delete(list.id)" class="btn btn-sm btn-default">
+            Delete
+          </a>
         </div>
       </div>
       <h3 class="list-group-item-heading">
