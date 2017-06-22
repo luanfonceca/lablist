@@ -14,7 +14,7 @@ app.controller('listToDoListController', [
       });
     }
 
-    $scope.delete = function(id){
+    $scope.deleteToDoList = function(id){
       SweetAlert.swal({
         title: 'Are you sure?',
         text: 'Your will not be able to undo this action!',

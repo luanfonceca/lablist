@@ -23,7 +23,6 @@ app.factory('toDoListApiFactory', ['$http', function($http){
   };
 
   toDoListApiFactory.deleteToDoListById = function(id){
-    debugger;
     var url = urlBase + id + '/';
     return $http.delete(url);
   };

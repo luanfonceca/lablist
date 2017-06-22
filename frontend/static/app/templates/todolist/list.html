@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="btn-toolbar pull-right">
     <div class="btn-group">
-      <a ui-sref="create" class="btn btn-default">
+      <a ui-sref="createToDoList" class="btn btn-default">
         Create list
       </a>
     </div>
@@ -14,7 +14,7 @@
       <p>
         There are no Lists to be shown, use the button below to add new lists.
       </p>
-      <a ui-sref="create" class="btn btn-primary">
+      <a ui-sref="createToDoList" class="btn btn-primary">
         Click here to create lists
       </a>
     </div>
@@ -24,10 +24,10 @@
           <a href="#" class="btn btn-sm btn-default">
             Tasks
           </a>
-          <a ui-sref='update({id: list.id})' class="btn btn-sm btn-default">
+          <a ui-sref="updateToDoList({id: list.id})" class="btn btn-sm btn-default">
             Update
           </a>
-          <a ng-click="delete(list.id)" class="btn btn-sm btn-default">
+          <a ng-click="deleteToDoList(list.id)" class="btn btn-sm btn-default">
             Delete
           </a>
         </div>
