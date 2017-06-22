@@ -8,5 +8,9 @@ app.factory('toDoListApiFactory', ['$http', function($http){
     return $http.get(urlBase);
   };
 
+  toDoListApiFactory.createToDoList = function (todolist){
+    return $http.post(urlBase, todolist);
+  };
+
   return toDoListApiFactory;
 }]);

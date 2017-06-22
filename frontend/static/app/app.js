@@ -6,10 +6,15 @@ var app = angular.module('lablist', [
 
 app.config(function($stateProvider, $urlRouterProvider){
   $stateProvider.state('list', {
-    url: '/',
+    url: '/lists/',
     templateUrl: '/static/app/templates/todolist/list.html',
-    controller: 'toDoListController'
+    controller: 'listToDoListController'
+  });
+  $stateProvider.state('create', {
+    url: '/lists/create/',
+    templateUrl: '/static/app/templates/todolist/create.html',
+    controller: 'createToDoListController'
   });
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/lists/');
 });
