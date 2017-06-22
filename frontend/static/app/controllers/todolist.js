@@ -23,8 +23,10 @@ app.controller('listToDoListController', [
         confirmButtonColor: '#DD6B55',
         confirmButtonText: 'Yes, delete it!',
         closeOnConfirm: true,
-      }, function(){
-        toDoListApiFactory.deleteToDoListById(id);
+      }, function(isConfirm){
+        if (isConfirm) {
+          toDoListApiFactory.deleteToDoListById(id);
+        }
       });
     }
   }]

@@ -10,17 +10,17 @@ var app = angular.module('lablist', [
 
 app.config(function($stateProvider, $urlRouterProvider){
   // ToDoList routes
-  $stateProvider.state('listToDoList', {
+  $stateProvider.state('listToDoListRoute', {
     url: '/lists/',
     templateUrl: '/static/app/templates/todolist/list.html',
     controller: 'listToDoListController'
   });
-  $stateProvider.state('createToDoList', {
+  $stateProvider.state('createToDoListRoute', {
     url: '/lists/create/',
     templateUrl: '/static/app/templates/todolist/create.html',
     controller: 'createToDoListController'
   });
-  $stateProvider.state('updateToDoList', {
+  $stateProvider.state('updateToDoListRoute', {
     url: '/lists/update/:id/',
     templateUrl: '/static/app/templates/todolist/update.html',
     controller: 'updateToDoListController'
