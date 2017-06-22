@@ -2,7 +2,7 @@
   <div class="btn-toolbar pull-right">
     <div class="btn-group">
       <a href="#!/lists/create/" class="btn btn-default">
-        Create task
+        Create list
       </a>
     </div>
   </div>
@@ -10,6 +10,14 @@
 </div>
 <div class="page-content">
   <div class="list-group">
+    <div class="list-group-item text-center" ng-show="!events.lists">
+      <p>
+        There are no Lists to be shown, use the button below to add new lists.
+      </p>
+      <a href="#!/lists/create/" class="btn btn-primary">
+        Click here to create lists
+      </a>
+    </div>
     <div class="list-group-item" ng-repeat="list in lists">
       <div class="btn-toolbar pull-right">
         <div class="btn-group" role="group" aria-label="...">
