@@ -1,0 +1,45 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" ng-app="lablist">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>LabList</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'libs/bootstrap-3.3.7/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="padding-top: 70px;">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="javascript:;">LabList</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2" ui-view></div>
+    </div>
+
+    <script src="{% static 'libs/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+
+    <!-- Angularjs -->
+    <script src="{% static 'libs/angular.min.js' %}"></script>
+    <script src="{% static 'libs/angular-ui-router.min.js' %}"></script>
+
+    <!-- Lablist -->
+    <script src="{% static 'app/app.js' %}"></script>
+  </body>
+</html>
