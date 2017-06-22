@@ -15,6 +15,11 @@ app.config(function($stateProvider, $urlRouterProvider){
     templateUrl: '/static/app/templates/todolist/create.html',
     controller: 'createToDoListController'
   });
+  $stateProvider.state('update', {
+    url: '/lists/update/:id/',
+    templateUrl: '/static/app/templates/todolist/update.html',
+    controller: 'updateToDoListController'
+  });
 
   $urlRouterProvider.otherwise('/lists/');
 });

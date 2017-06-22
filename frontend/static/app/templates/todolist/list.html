@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="btn-toolbar pull-right">
     <div class="btn-group">
-      <a href="#!/lists/create/" class="btn btn-default">
+      <a ui-sref="create" class="btn btn-default">
         Create list
       </a>
     </div>
@@ -14,7 +14,7 @@
       <p>
         There are no Lists to be shown, use the button below to add new lists.
       </p>
-      <a href="#!/lists/create/" class="btn btn-primary">
+      <a ui-sref="create" class="btn btn-primary">
         Click here to create lists
       </a>
     </div>
@@ -22,7 +22,7 @@
       <div class="btn-toolbar pull-right">
         <div class="btn-group" role="group" aria-label="...">
           <a href="#" class="btn btn-sm btn-default">Tasks</a>
-          <a href="#" class="btn btn-sm btn-default">Update</a>
+          <a ui-sref='update({ id: list.id })' class="btn btn-sm btn-default">Update</a>
           <a href="#" class="btn btn-sm btn-default">Delete</a>
         </div>
       </div>

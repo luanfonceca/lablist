@@ -30,3 +30,29 @@ app.controller('createToDoListController',
     };
   }]
 );
+
+app.controller('updateToDoListController',
+  ['$scope', '$stateParams', '$location', 'toDoListApiFactory',
+  function($scope, $stateParams, $location, toDoListApiFactory){
+    $scope.hasError = function(fieldName) {
+      var field = $scope.todolistForm[fieldName];
+      return field.$invalid && field.$dirty ? 'has-error' : '';
+    };
+
+    $scope.todolist = null;
+
+    getToDoList();
+    function getToDoList(){
+      toDoListApiFactory.getToDoList($stateParams.id).then(function(response){
+        $scope.todolist = response.data;
+      }, function (error){
+        $scope.status = 'Unable to load list: ' + error.message;
+      });
+    }
+
+    $scope.update = function(todolist) {
+      toDoListApiFactory.updateToDoList(todolist);
+      $location.path('#!/lists/');
+    };
+  }]
+);
