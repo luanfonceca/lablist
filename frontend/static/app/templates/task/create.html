@@ -1,0 +1,53 @@
+<div class="page-header">
+  <div class="btn-toolbar pull-right">
+    <div class="btn-group">
+      <a ui-sref="listTaskRoute({todolistId: todolistId})" class="btn btn-default">
+        Back
+      </a>
+    </div>
+  </div>
+  <h1>Create task</h1>
+</div>
+<div class="page-content">
+  <form class="form-horizontal" name="taskForm" ng-submit="taskForm.$valid && create(task)">
+    <div class="form-group" ng-class="hasError('title')">
+      <label for="id_title" class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="title" id="id_title" placeholder="Title" required ng-model="task.title">
+        <span class="help-block" ng-show="taskForm.title.$invalid && taskForm.title.$dirty">
+          The Title is required.
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id_deadline" class="col-sm-2 control-label">
+      	Deadline
+      </label>
+      <div class="col-sm-10">
+        <div class="dropdown">
+          <a class="dropdown-toggle" id="deadlineDropdown" role="button" data-toggle="dropdown" href="javascript:;">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="task.deadline">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </span>
+            </div>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker ng-model="task.deadline" datetimepicker-config="{dropdownSelector: '#deadlineDropdown'}">
+            </datetimepicker>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-disabled="taskForm.$invalid">
+          Create task
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

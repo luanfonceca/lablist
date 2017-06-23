@@ -47,3 +47,21 @@ app.controller('listTaskController', [
     }
   }]
 );
+
+app.controller('createTaskController',
+  ['$scope', '$stateParams', '$location', 'taskApiFactory',
+  function($scope, $stateParams, $location, taskApiFactory){
+    $scope.hasError = function(fieldName) {
+      var field = $scope.taskForm[fieldName];
+      return field.$invalid && field.$dirty ? 'has-error' : '';
+    };
+
+    $scope.todolistId = $stateParams.todolistId;
+    $scope.create = function(task) {
+      taskApiFactory.createTask(task, $scope.todolistId);
+      $location.path(
+        '#!/lists/' + $scope.todolistId + '/tasks/'
+      );
+    };
+  }]
+);

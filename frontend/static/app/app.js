@@ -3,6 +3,7 @@ var app = angular.module('lablist', [
   'ui.router',
   'oitozero.ngSweetAlert',
   'as.sortable',
+  'ui.bootstrap.datetimepicker',
 
   // ToDoList
   'lablist.controllers.todolist',
@@ -36,6 +37,11 @@ app.config(function($stateProvider, $urlRouterProvider){
     url: '/lists/:todolistId/tasks/',
     templateUrl: '/static/app/templates/task/list.html',
     controller: 'listTaskController',
+  });
+  $stateProvider.state('createTaskRoute', {
+    url: '/lists/:todolistId/tasks/create/',
+    templateUrl: '/static/app/templates/task/create.html',
+    controller: 'createTaskController'
   });
 
   $urlRouterProvider.otherwise('/lists/');
