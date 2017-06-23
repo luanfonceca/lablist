@@ -1,4 +1,4 @@
-var app = angular.module('lablist.services', []);
+var app = angular.module('lablist.services.todolist', []);
 
 app.factory('toDoListApiFactory', ['$http', function($http){
   var urlBase = '/api/lists/';

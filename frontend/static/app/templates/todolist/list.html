@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="btn-toolbar pull-right">
     <div class="btn-group">
-      <a ui-sref="createToDoListRoute" class="btn btn-default">
+      <a ui-sref="createToDoListRoute" class="btn btn-primary">
         Create list
       </a>
     </div>
@@ -21,7 +21,7 @@
     <div class="list-group-item" ng-repeat="list in lists">
       <div class="btn-toolbar pull-right">
         <div class="btn-group" role="group" aria-label="...">
-          <a href="#" class="btn btn-sm btn-default">
+          <a ui-sref="listTaskRoute({todolistId: list.id})" class="btn btn-sm btn-default">
             Tasks
           </a>
           <a ui-sref="updateToDoListRoute({id: list.id})" class="btn btn-sm btn-default">
@@ -33,7 +33,9 @@
         </div>
       </div>
       <h3 class="list-group-item-heading">
-        <a href="#">{{ list.title }}</a>
+        <a ui-sref="listTaskRoute({todolistId: list.id})">
+          {{ list.title }}
+        </a>
       </h3>
     </div>
   </div>

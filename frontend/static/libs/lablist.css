@@ -1,0 +1,19 @@
+.list-group-item-heading a,
+.list-group-item-heading label {
+  position: relative;
+  top: 3px;
+}
+
+.list-group-item-heading label {
+  margin-bottom: 0;
+}
+
+.list-group-item-heading label input {
+  bottom: 3px;
+  position: relative;
+  margin-right: 7px;
+}
+
+.list-group-item-heading .task-deadline {
+  font-size: 18px;
+}

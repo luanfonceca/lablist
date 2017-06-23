@@ -9,6 +9,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>LabList</title>
 
+    <!-- LabList css -->
+    <link href="{% static 'libs/lablist.css' %}" rel="stylesheet">
+
     <!-- Bootstrap -->
     <link href="{% static 'libs/bootstrap-3.3.7/css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -46,7 +49,13 @@
 
     <!-- Lablist -->
     <script src="{% static 'app/app.js' %}"></script>
+
+    <!-- Lablist - ToDoList -->
     <script src="{% static 'app/controllers/todolist.js' %}"></script>
     <script src="{% static 'app/services/todolist.js' %}"></script>
+
+    <!-- Lablist - Task -->
+    <script src="{% static 'app/controllers/task.js' %}"></script>
+    <script src="{% static 'app/services/task.js' %}"></script>
   </body>
 </html>

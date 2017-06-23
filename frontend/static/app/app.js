@@ -3,9 +3,13 @@ var app = angular.module('lablist', [
   'ui.router',
   'oitozero.ngSweetAlert',
 
-  // LabList
-  'lablist.controllers',
-  'lablist.services',
+  // ToDoList
+  'lablist.controllers.todolist',
+  'lablist.services.todolist',
+
+  // ToDoList
+  'lablist.controllers.task',
+  'lablist.services.task',
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider){
@@ -24,6 +28,13 @@ app.config(function($stateProvider, $urlRouterProvider){
     url: '/lists/update/:id/',
     templateUrl: '/static/app/templates/todolist/update.html',
     controller: 'updateToDoListController'
+  });
+
+  // Task routes
+  $stateProvider.state('listTaskRoute', {
+    url: '/lists/:todolistId/tasks/',
+    templateUrl: '/static/app/templates/task/list.html',
+    controller: 'listTaskController',
   });
 
   $urlRouterProvider.otherwise('/lists/');

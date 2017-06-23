@@ -1,4 +1,4 @@
-var app = angular.module('lablist.controllers', []);
+var app = angular.module('lablist.controllers.todolist', []);
 
 app.controller('listToDoListController', [
   '$scope', 'toDoListApiFactory', 'SweetAlert',
