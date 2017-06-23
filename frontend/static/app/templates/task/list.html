@@ -28,7 +28,7 @@
         <div as-sortable-item-handle>
           <div class="btn-toolbar pull-right">
             <div class="btn-group" role="group" aria-label="...">
-              <a ui-sref="updateTaskRoute({id: task.id})" class="btn btn-sm btn-default">
+              <a ui-sref="updateTaskRoute({todolistId: task.todolist, id: task.id})" class="btn btn-sm btn-default">
                 Update
               </a>
               <a ng-click="deleteTask(task.id)" class="btn btn-sm btn-default">

@@ -65,3 +65,31 @@ app.controller('createTaskController',
     };
   }]
 );
+
+app.controller('updateTaskController',
+  ['$scope', '$stateParams', '$location', 'taskApiFactory',
+  function($scope, $stateParams, $location, taskApiFactory){
+    $scope.hasError = function(fieldName) {
+      var field = $scope.todolistForm[fieldName];
+      return field.$invalid && field.$dirty ? 'has-error' : '';
+    };
+
+    $scope.task = null;
+    getTaskById();
+    function getTaskById(){
+      taskApiFactory.getTaskById($stateParams.id).then(function(response){
+        $scope.task = response.data;
+      }, function (error){
+        $scope.status = 'Unable to load task: ' + error.message;
+      });
+    }
+
+    $scope.todolistId = $stateParams.todolistId;
+    $scope.update = function(task) {
+      taskApiFactory.updateTask(task);
+      $location.path(
+        '#!/lists/' + $scope.todolistId + '/tasks/'
+      );
+    };
+  }]
+);

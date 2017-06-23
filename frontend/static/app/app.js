@@ -43,6 +43,11 @@ app.config(function($stateProvider, $urlRouterProvider){
     templateUrl: '/static/app/templates/task/create.html',
     controller: 'createTaskController'
   });
+  $stateProvider.state('updateTaskRoute', {
+    url: '/lists/:todolistId/tasks/update/:id/',
+    templateUrl: '/static/app/templates/task/update.html',
+    controller: 'updateTaskController'
+  });
 
   $urlRouterProvider.otherwise('/lists/');
 });
