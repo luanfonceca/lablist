@@ -2,6 +2,7 @@ var app = angular.module('lablist', [
   // External libs
   'ui.router',
   'oitozero.ngSweetAlert',
+  'as.sortable',
 
   // ToDoList
   'lablist.controllers.todolist',

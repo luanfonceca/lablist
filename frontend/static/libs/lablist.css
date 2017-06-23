@@ -14,6 +14,23 @@
   margin-right: 7px;
 }
 
+.list-group-item.as-sortable-item {
+  padding: 0;
+}
+
+.list-group-item.as-sortable-item .as-sortable-item-handle {
+  padding: 10px 15px;
+}
+
 .list-group-item-heading .task-deadline {
   font-size: 18px;
+}
+
+.as-sortable-placeholder {
+  box-sizing: border-box;
+  background-color: #eee;
+}
+
+.as-sortable-drag {
+  opacity: .8;
 }
