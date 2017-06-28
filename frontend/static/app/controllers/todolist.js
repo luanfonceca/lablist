@@ -16,7 +16,7 @@ app.controller('listToDoListController', [
       });
     }
 
-    $scope.deleteToDoList = function(id){
+    $scope.deleteToDoList = function(list){
       SweetAlert.swal({
         title: 'Are you sure?',
         text: 'Your will not be able to undo this action!',
@@ -27,7 +27,12 @@ app.controller('listToDoListController', [
         closeOnConfirm: true,
       }, function(isConfirm){
         if (isConfirm) {
-          toDoListApiFactory.deleteToDoListById(id);
+          toDoListApiFactory.deleteToDoListById(
+            list.id, $rootScope.request_headers
+          ).then(function(response){
+            var index = $scope.lists.indexOf(list);
+            $scope.lists.splice(index, 1);
+          });
         }
       });
     }
