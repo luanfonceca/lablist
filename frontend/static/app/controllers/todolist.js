@@ -33,23 +33,26 @@ app.controller('listToDoListController', [
 );
 
 app.controller('createToDoListController',
-  ['$scope', '$location', 'toDoListApiFactory',
-  function($scope, $location, toDoListApiFactory){
+  ['$scope', '$location', '$state', 'toDoListApiFactory',
+  function($scope, $location, $state, toDoListApiFactory){
     $scope.hasError = function(fieldName) {
       var field = $scope.todolistForm[fieldName];
       return field.$invalid && field.$dirty ? 'has-error' : '';
     };
 
     $scope.create = function(todolist) {
-      toDoListApiFactory.createToDoList(todolist);
-      $location.path('#!/lists/');
+      toDoListApiFactory.createToDoList(
+        todolist
+      ).then(function(response) {
+        $state.go('listToDoListRoute');
+      });
     };
   }]
 );
 
 app.controller('updateToDoListController',
-  ['$scope', '$stateParams', '$location', 'toDoListApiFactory',
-  function($scope, $stateParams, $location, toDoListApiFactory){
+  ['$scope', '$state', '$stateParams', '$location', 'toDoListApiFactory',
+  function($scope, $state, $stateParams, $location, toDoListApiFactory){
     $scope.hasError = function(fieldName) {
       var field = $scope.todolistForm[fieldName];
       return field.$invalid && field.$dirty ? 'has-error' : '';
@@ -67,8 +70,11 @@ app.controller('updateToDoListController',
     }
 
     $scope.update = function(todolist) {
-      toDoListApiFactory.updateToDoList(todolist);
-      $location.path('#!/lists/');
+      toDoListApiFactory.updateToDoList(
+        todolist
+      ).then(function(response) {
+        $state.go('listToDoListRoute');
+      });
     };
   }]
 );
