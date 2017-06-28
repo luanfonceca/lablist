@@ -28,8 +28,16 @@ class TaskSortApiView(BaseTaskView, generics.UpdateAPIView):
     def partial_update(self, request, *args, **kwargs):
         self.object = self.get_object()
         order = self.request.data.get('order')
+
+        if isinstance(order, str):
+            try:
+                order = int(order)
+            except:
+                raise exceptions.NotFound()
+
         if order is None:
             raise exceptions.NotFound()
+
         self.object.sort(order=order)
         return super(TaskSortApiView, self).partial_update(
             request, *args, **kwargs)

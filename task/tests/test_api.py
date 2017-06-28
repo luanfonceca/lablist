@@ -1,8 +1,14 @@
 import json
 
 from django.test import TestCase
+from django.contrib.auth.models import User
+
 from rest_framework import status
 from rest_framework.reverse import reverse
+from rest_framework.test import APITestCase
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient
+
 from model_mommy import mommy
 
 from task.models import Task
@@ -10,15 +16,20 @@ from task.serializers import TaskSerializer
 from todolist.models import ToDoList
 
 
-class BaseTaskViewTest(TestCase):
+class BaseTaskViewTest(APITestCase):
     def setUp(self):
-        self.todolist = mommy.make(ToDoList, title='Example list 1')
+        self.user = mommy.make(
+            User, username='admin', password='admin',
+            email='admin@admin.com')
+        self.client.login(username='admin', password='admin')
+        self.client.force_authenticate(user=self.user)
+        self.todolist = mommy.make(
+            ToDoList, title='Example list 1', user=self.user)
 
 
 class TaskListViewTest(BaseTaskViewTest):
     def test_empty(self):
         response = self.client.get(reverse('task:list'))
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json(), [])
 
@@ -83,7 +94,9 @@ class TaskCreateViewTest(BaseTaskViewTest):
 
 class TaskDetailViewTest(BaseTaskViewTest):
     def setUp(self):
-        self.task = mommy.make(Task, title='Example task 1')
+        super(TaskDetailViewTest, self).setUp()
+        self.task = mommy.make(
+            Task, title='Example task 1', todolist=self.todolist)
 
     def test_not_found(self):
         response = self.client.get(
@@ -93,7 +106,8 @@ class TaskDetailViewTest(BaseTaskViewTest):
         self.assertEqual(response.json(), {'detail': 'Not found.'})
 
     def test_example_list_1(self):
-        task = mommy.make(Task, title='Example task 1')
+        task = mommy.make(
+            Task, title='Example task 1', todolist=self.todolist)
         response = self.client.get(
             reverse('task:detail', kwargs={'pk': task.pk}))
 
@@ -115,7 +129,7 @@ class TaskUpdatViewTest(BaseTaskViewTest):
         }
         response = self.client.patch(
             reverse('task:detail', kwargs={'pk': self.task.pk}),
-            json.dumps(data), 'application/json')
+            data)
 
         self.assertEqual(
             response.status_code, status.HTTP_200_OK)
@@ -125,7 +139,9 @@ class TaskUpdatViewTest(BaseTaskViewTest):
 
 class TaskDestroyViewTest(BaseTaskViewTest):
     def setUp(self):
-        self.task = mommy.make(Task, title='Example task 1')
+        super(TaskDestroyViewTest, self).setUp()
+        self.task = mommy.make(
+            Task, title='Example task 1', todolist=self.todolist)
 
     def test_destroy(self):
         response = self.client.delete(
@@ -138,7 +154,7 @@ class TaskDestroyViewTest(BaseTaskViewTest):
 
 class TaskSortViewTest(BaseTaskViewTest):
     def setUp(self):
-        self.todolist = mommy.make(ToDoList, title='Example list 1')
+        super(TaskSortViewTest, self).setUp()
         self.task1 = mommy.make(
             Task, title='Example task 1', order=0,
             todolist=self.todolist)
@@ -156,18 +172,18 @@ class TaskSortViewTest(BaseTaskViewTest):
         data = {}
         response = self.client.patch(
             reverse('task:sort', kwargs={'pk': self.task2.pk}),
-            json.dumps(data), 'application/json')
+            data)
 
         self.assertEqual(
             response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_sort(self):
         data = {
-            'order': 0,
+            'order': 0
         }
         response = self.client.patch(
             reverse('task:sort', kwargs={'pk': self.task4.pk}),
-            json.dumps(data), 'application/json')
+            data)
 
         self.assertEqual(
             response.status_code, status.HTTP_200_OK)
@@ -182,14 +198,14 @@ class TaskSortViewTest(BaseTaskViewTest):
 
 class TaskMarkAsDoneViewTest(BaseTaskViewTest):
     def setUp(self):
-        self.todolist = mommy.make(ToDoList, title='Example list 1')
+        super(TaskMarkAsDoneViewTest, self).setUp()
         self.task = mommy.make(
             Task, title='Example task 1', todolist=self.todolist)
 
     def test_destroy(self):
         response = self.client.patch(
             reverse('task:toggle', kwargs={'pk': self.task.pk}),
-            json.dumps({}), 'application/json')
+            {})
 
         self.assertEqual(
             response.status_code, status.HTTP_200_OK)
