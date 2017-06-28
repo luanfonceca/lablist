@@ -29,9 +29,13 @@ app.factory('taskApiFactory', ['$http', function($http){
   };
 
   taskApiFactory.sortTaskByPosition = function(task, position){
-    debugger;
     var url = urlBase + task.id + '/sort/';
     return $http.patch(url, {'order': position});
+  };
+
+  taskApiFactory.toggleTask = function(task){
+    var url = urlBase + task.id + '/toggle/';
+    return $http.patch(url, task);
   };
 
   return taskApiFactory;

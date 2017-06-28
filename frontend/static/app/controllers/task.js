@@ -41,6 +41,10 @@ app.controller('listTaskController', [
         }
       });
     }
+
+    $scope.toggleTask = function(task){
+      taskApiFactory.toggleTask(task);
+    }
   }]
 );
 

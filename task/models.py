@@ -46,6 +46,6 @@ class Task(models.Model):
         self.order = order
         self.save()
 
-    def mark_as_done(self):
-        self.is_done = True
+    def toggle(self):
+        self.is_done = not self.is_done
         self.save()

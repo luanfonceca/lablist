@@ -38,7 +38,7 @@
           </div>
           <h3 class="list-group-item-heading">
             <label for="id_task_{{ task.id }}">
-              <input type="checkbox" id="id_task_{{ task.id }}" />
+              <input type="checkbox" id="id_task_{{ task.id }}" ng-model="task.is_done" ng-change="toggleTask(task)" />
               {{ task.title }}
               <span ng-if="task.deadline" class="task-deadline">
                 {{ task.deadline }}

@@ -188,7 +188,7 @@ class TaskMarkAsDoneViewTest(BaseTaskViewTest):
 
     def test_destroy(self):
         response = self.client.patch(
-            reverse('task:mark_as_done', kwargs={'pk': self.task.pk}),
+            reverse('task:toggle', kwargs={'pk': self.task.pk}),
             json.dumps({}), 'application/json')
 
         self.assertEqual(

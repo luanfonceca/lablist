@@ -11,7 +11,7 @@ urlpatterns = [
     url(regex=r'^(?P<pk>[\d+]+)/sort/$',
         view=views.TaskSortApiView.as_view(),
         name='sort'),
-    url(regex=r'^(?P<pk>[\d+]+)/mark_as_done/$',
-        view=views.TaskMarkAsDoneApiView.as_view(),
-        name='mark_as_done'),
+    url(regex=r'^(?P<pk>[\d+]+)/toggle/$',
+        view=views.TaskToggleApiView.as_view(),
+        name='toggle'),
 ]

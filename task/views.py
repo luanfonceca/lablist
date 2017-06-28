@@ -30,9 +30,9 @@ class TaskSortApiView(BaseTaskView, generics.UpdateAPIView):
             request, *args, **kwargs)
 
 
-class TaskMarkAsDoneApiView(BaseTaskView, generics.UpdateAPIView):
+class TaskToggleApiView(BaseTaskView, generics.UpdateAPIView):
     def partial_update(self, request, *args, **kwargs):
         self.object = self.get_object()
-        self.object.mark_as_done()
-        return super(TaskMarkAsDoneApiView, self).partial_update(
+        self.object.toggle()
+        return super(TaskToggleApiView, self).partial_update(
             request, *args, **kwargs)
