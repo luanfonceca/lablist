@@ -26,6 +26,14 @@
   font-size: 18px;
 }
 
+.list-group-item .progress-ratio {
+  background-color: darkseagreen;
+  height: 2px;
+  position: relative;
+  top: 10px;
+  left: -15px;
+}
+
 .as-sortable-placeholder {
   box-sizing: border-box;
   background-color: #eee;
