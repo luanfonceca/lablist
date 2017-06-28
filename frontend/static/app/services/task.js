@@ -28,5 +28,11 @@ app.factory('taskApiFactory', ['$http', function($http){
     return $http.delete(url);
   };
 
+  taskApiFactory.sortTaskByPosition = function(task, position){
+    debugger;
+    var url = urlBase + task.id + '/sort/';
+    return $http.patch(url, {'order': position});
+  };
+
   return taskApiFactory;
 }]);

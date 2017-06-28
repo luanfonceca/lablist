@@ -163,7 +163,7 @@ class TaskSortViewTest(BaseTaskViewTest):
 
     def test_sort(self):
         data = {
-            'old_task': self.task2.pk,
+            'order': 0,
         }
         response = self.client.patch(
             reverse('task:sort', kwargs={'pk': self.task4.pk}),

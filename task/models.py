@@ -25,18 +25,25 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
-    def sort(self, old_task):
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.order = self.todolist.tasks.count()
+        super(Task, self).save(*args, **kwargs)
+
+    def sort(self, order):
         tasks = self.todolist.tasks.exclude(pk=self.pk)
-        if self.order > old_task.order:
+        if self.order > order:
             tasks.filter(
-                order__gte=old_task.order
+                order__gte=order,
+                order__lte=self.order,
             ).update(order=models.F('order') + 1)
-        elif self.order < old_task.order:
+        elif self.order < order:
             tasks.filter(
-                order__lte=old_task.order
+                order__lte=order,
+                order__gte=self.order,
             ).update(order=models.F('order') - 1)
 
-        self.order = old_task.order
+        self.order = order
         self.save()
 
     def mark_as_done(self):

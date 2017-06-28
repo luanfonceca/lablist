@@ -20,17 +20,12 @@ class TaskApiView(BaseTaskView,
 
 
 class TaskSortApiView(BaseTaskView, generics.UpdateAPIView):
-    def get_old_task(self):
-        old_task = self.request.data.get('old_task')
-        try:
-            return Task.objects.get(pk=old_task)
-        except Task.DoesNotExist:
-            raise exceptions.NotFound()
-
     def partial_update(self, request, *args, **kwargs):
         self.object = self.get_object()
-        old_task = self.get_old_task()
-        self.object.sort(old_task=old_task)
+        order = self.request.data.get('order')
+        if order is None:
+            raise exceptions.NotFound()
+        self.object.sort(order=order)
         return super(TaskSortApiView, self).partial_update(
             request, *args, **kwargs)
 
