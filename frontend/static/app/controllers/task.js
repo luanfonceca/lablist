@@ -1,8 +1,11 @@
 var app = angular.module('lablist.controllers.task', []);
 
-app.controller('listTaskController', [
-  '$scope', '$rootScope', '$state', '$stateParams', 'toDoListApiFactory', 'taskApiFactory', 'SweetAlert',
-  function($scope, $rootScope, $state, $stateParams, toDoListApiFactory, taskApiFactory, SweetAlert){
+app.controller('listTaskController',
+  ['$scope', '$rootScope', '$state', '$stateParams',
+   'toDoListApiFactory', 'taskApiFactory', 'SweetAlert',
+   'Socialshare',
+  function($scope, $rootScope, $state, $stateParams,
+    toDoListApiFactory, taskApiFactory, SweetAlert, Socialshare){
     $scope.todolist = null;
     $scope.tasks = [];
 
@@ -50,6 +53,15 @@ app.controller('listTaskController', [
       taskApiFactory.toggleTask(
         task, $rootScope.request_headers
       );
+    }
+
+    $scope.shareTask = function(todolist, task){
+      Socialshare.share({
+        'provider': 'facebook',
+        'attrs': {
+          'socialshareUrl': 'http://lablist.herokuapp.com',
+        }
+      });
     }
   }]
 );

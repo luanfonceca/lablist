@@ -4,6 +4,7 @@ var app = angular.module('lablist', [
   'oitozero.ngSweetAlert',
   'as.sortable',
   'ui.bootstrap.datetimepicker',
+  '720kb.socialshare',
 
   // ToDoList
   'lablist.controllers.todolist',

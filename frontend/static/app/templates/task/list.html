@@ -28,6 +28,9 @@
         <div as-sortable-item-handle>
           <div class="btn-toolbar pull-right">
             <div class="btn-group" role="group" aria-label="...">
+              <a ng-disabled="!task.is_done" ng-click="shareTask(todolist, task)" class="btn btn-sm btn-default">
+                Share
+              </a>
               <a ui-sref="updateTaskRoute({todolistId: task.todolist, id: task.id})" class="btn btn-sm btn-default">
                 Update
               </a>
