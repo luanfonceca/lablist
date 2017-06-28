@@ -19,7 +19,7 @@
       <p>
         There are no Tasks to be shown, use the button below to add new tasks.
       </p>
-      <a ui-sref="createTaskRoute" class="btn btn-primary">
+      <a ui-sref="createTaskRoute({todolistId: todolist.id})" class="btn btn-primary">
         Click here to create tasks
       </a>
     </div>
@@ -40,11 +40,11 @@
             <label for="id_task_{{ task.id }}">
               <input type="checkbox" id="id_task_{{ task.id }}" ng-model="task.is_done" ng-change="toggleTask(task)" />
               {{ task.title }}
-              <span ng-if="task.deadline" class="task-deadline">
-                {{ task.deadline }}
-              </span>
             </label>
           </h3>
+          <div ng-if="task.deadline" class="list-group-item-text">
+            Deadline on {{ task.deadline | date:'medium' }}
+          </div>
         </div>
       </div>
     </div>
