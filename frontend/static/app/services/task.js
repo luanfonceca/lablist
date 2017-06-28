@@ -4,44 +4,48 @@ app.factory('taskApiFactory', ['$http', function($http){
   var urlBase = '/api/tasks/';
 
   return {
-    getTasksByToDoListId: function(toDolistId){
-      return $http.get(urlBase, {todolist_id: toDolistId}).then(function(response){
+    getTasksByToDoListId: function(toDolistId, headers){
+      data = {todolist_id: toDolistId};
+      return $http.get(
+        urlBase, data, headers
+      ).then(function(response){
         return response;
       });
     },
-    createTask: function(task, toDolistId){
+    createTask: function(task, toDolistId, headers){
       task.todolist = toDolistId;
-      return $http.post(urlBase, task).then(function(response){
+      return $http.post(urlBase, task, headers).then(function(response){
         return response;
       });
     },
-    getTaskById: function(id){
+    getTaskById: function(id, headers){
       var url = urlBase + id + '/';
-      return $http.get(url).then(function(response){
+      return $http.get(url, headers).then(function(response){
         return response;
       });
     },
-    updateTask: function(task){
+    updateTask: function(task, headers){
       var url = urlBase + task.id + '/';
-      return $http.patch(url, task).then(function(response){
+      return $http.patch(url, task, headers).then(function(response){
         return response;
       });
     },
-    deleteTaskById: function(id){
+    deleteTaskById: function(id, headers){
       var url = urlBase + id + '/';
-      return $http.delete(url).then(function(response){
+      return $http.delete(url, headers).then(function(response){
         return response;
       });
     },
-    sortTaskByPosition: function(task, position){
+    sortTaskByPosition: function(task, position, headers){
       var url = urlBase + task.id + '/sort/';
-      return $http.patch(url, {'order': position}).then(function(response){
+      var data = {'order': position};
+      return $http.patch(url, data, headers).then(function(response){
         return response;
       });
     },
-    toggleTask: function(task){
+    toggleTask: function(task, headers){
       var url = urlBase + task.id + '/toggle/';
-      return $http.patch(url, task).then(function(response){
+      return $http.patch(url, task, headers).then(function(response){
         return response;
       });
     }

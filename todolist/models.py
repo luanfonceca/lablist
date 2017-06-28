@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class ToDoList(models.Model):
@@ -6,6 +7,11 @@ class ToDoList(models.Model):
         verbose_name='Title', max_length=200)
     created_at = models.DateTimeField(
         verbose_name='Created At', auto_now_add=True)
+
+    # relations
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        related_name='todolists')
 
     class Meta:
         verbose_name = 'ToDoList'

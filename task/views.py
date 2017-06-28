@@ -8,6 +8,11 @@ class BaseTaskView():
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
+    def get_queryset(self):
+        queryset = super(BaseTaskView, self).get_queryset()
+        user = self.request.user
+        return queryset.filter(todolist__user=user)
+
 
 class TaskListApiView(BaseTaskView,
                       generics.ListCreateAPIView):

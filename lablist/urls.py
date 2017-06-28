@@ -24,8 +24,10 @@ urlpatterns = [
         include('todolist.urls', namespace='todolist')),
     url(r'^api/tasks/',
         include('task.urls', namespace='task')),
+    # url(r'^api/login/', include('rest_social_auth.urls_token')),
+    url(r'^api/auth/', include('rest_framework_social_oauth2.urls')),
 
-    # frontend
+
     # frontend
     url(r'^', include('frontend.urls', namespace='frontend')),
 ]

@@ -44,11 +44,30 @@
     <div class="container">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2" ui-view></div>
     </div>
+    <div id="fb-root"></div>
 
     <script src="{% static 'libs/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'libs/bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'libs/sweetalert/sweetalert.min.js' %}"></script>
     <script src="{% static 'libs/moment/moment.min.js' %}"></script>
+
+    <!-- Facebook SDK -->
+    <script type="text/javascript">
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '475752279427793',
+          status: true,
+          xfbml: true
+        });
+      };
+      (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/all.js";
+       fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
 
     <!-- Angularjs -->
     <script src="{% static 'libs/angular.min.js' %}"></script>
@@ -61,6 +80,10 @@
 
     <!-- Lablist -->
     <script src="{% static 'app/app.js' %}"></script>
+
+    <!-- Lablist - Auth -->
+    <script src="{% static 'app/controllers/auth.js' %}"></script>
+    <script src="{% static 'app/services/auth.js' %}"></script>
 
     <!-- Lablist - ToDoList -->
     <script src="{% static 'app/controllers/todolist.js' %}"></script>

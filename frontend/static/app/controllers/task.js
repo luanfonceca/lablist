@@ -1,15 +1,15 @@
 var app = angular.module('lablist.controllers.task', []);
 
 app.controller('listTaskController', [
-  '$scope', '$state', '$stateParams', 'toDoListApiFactory', 'taskApiFactory', 'SweetAlert',
-  function($scope, $state, $stateParams, toDoListApiFactory, taskApiFactory, SweetAlert){
+  '$scope', '$rootScope', '$state', '$stateParams', 'toDoListApiFactory', 'taskApiFactory', 'SweetAlert',
+  function($scope, $rootScope, $state, $stateParams, toDoListApiFactory, taskApiFactory, SweetAlert){
     $scope.todolist = null;
     $scope.tasks = [];
 
     getToDoListById();
     function getToDoListById(){
       toDoListApiFactory.getToDoListById(
-        $stateParams.todolistId
+        $stateParams.todolistId, $rootScope.request_headers
       ).then(function(response){
         $scope.todolist = response.data;
         $scope.tasks = $scope.todolist.tasks;
@@ -22,7 +22,9 @@ app.controller('listTaskController', [
       orderChanged: function (event) {
         var task = event.source.itemScope.modelValue;
         var position = event.dest.index;
-        taskApiFactory.sortTaskByPosition(task, position);
+        taskApiFactory.sortTaskByPosition(
+          task, position, $rootScope.request_headers
+        );
       },
     };
 
@@ -37,20 +39,24 @@ app.controller('listTaskController', [
         closeOnConfirm: true,
       }, function(isConfirm){
         if (isConfirm) {
-          taskApiFactory.deleteTaskById(id);
+          taskApiFactory.deleteTaskById(
+            id, $rootScope.request_headers
+          );
         }
       });
     }
 
     $scope.toggleTask = function(task){
-      taskApiFactory.toggleTask(task);
+      taskApiFactory.toggleTask(
+        task, $rootScope.request_headers
+      );
     }
   }]
 );
 
 app.controller('createTaskController',
-  ['$scope', '$state', '$stateParams', '$location', 'taskApiFactory',
-  function($scope, $state, $stateParams, $location, taskApiFactory){
+  ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'taskApiFactory',
+  function($scope, $rootScope, $state, $stateParams, $location, taskApiFactory){
     $scope.hasError = function(fieldName) {
       var field = $scope.taskForm[fieldName];
       return field.$invalid && field.$dirty ? 'has-error' : '';
@@ -59,7 +65,7 @@ app.controller('createTaskController',
     $scope.todolistId = $stateParams.todolistId;
     $scope.create = function(task) {
       taskApiFactory.createTask(
-        task, $scope.todolistId
+        task, $scope.todolistId, $rootScope.request_headers
       ).then(function(response) {
         $state.go(
           'listTaskRoute', {todolistId: $scope.todolistId}
@@ -70,8 +76,8 @@ app.controller('createTaskController',
 );
 
 app.controller('updateTaskController',
-  ['$scope','$state', '$stateParams', 'taskApiFactory',
-  function($scope, $state, $stateParams, taskApiFactory){
+  ['$scope', '$rootScope', '$state', '$stateParams', 'taskApiFactory',
+  function($scope, $rootScope, $state, $stateParams, taskApiFactory){
     $scope.hasError = function(fieldName) {
       var field = $scope.taskForm[fieldName];
       return field.$invalid && field.$dirty ? 'has-error' : '';
@@ -81,7 +87,7 @@ app.controller('updateTaskController',
     getTaskById();
     function getTaskById(){
       taskApiFactory.getTaskById(
-        $stateParams.id
+        $stateParams.id, $rootScope.request_headers
       ).then(function(response){
         $scope.task = response.data;
       }, function (error){
@@ -91,7 +97,9 @@ app.controller('updateTaskController',
 
     $scope.todolistId = $stateParams.todolistId;
     $scope.update = function(task) {
-      taskApiFactory.updateTask(task).then(function(response) {
+      taskApiFactory.updateTask(
+        task, $rootScope.request_headers
+      ).then(function(response) {
         $state.go(
           'listTaskRoute', {todolistId: $scope.todolistId}
         );

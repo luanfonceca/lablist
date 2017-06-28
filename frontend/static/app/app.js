@@ -12,24 +12,36 @@ var app = angular.module('lablist', [
   // ToDoList
   'lablist.controllers.task',
   'lablist.services.task',
+
+  // Auth
+  'lablist.controllers.auth',
+  'lablist.services.auth',
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider){
+  // Auth routes
+  $stateProvider.state('loginRoute', {
+    url: '/',
+    templateUrl: '/static/app/templates/auth/login.html',
+    controller: 'loginController',
+  
+  });
+
   // ToDoList routes
   $stateProvider.state('listToDoListRoute', {
     url: '/lists/',
     templateUrl: '/static/app/templates/todolist/list.html',
-    controller: 'listToDoListController'
+    controller: 'listToDoListController',
   });
   $stateProvider.state('createToDoListRoute', {
     url: '/lists/create/',
     templateUrl: '/static/app/templates/todolist/create.html',
-    controller: 'createToDoListController'
+    controller: 'createToDoListController',
   });
   $stateProvider.state('updateToDoListRoute', {
     url: '/lists/update/:id/',
     templateUrl: '/static/app/templates/todolist/update.html',
-    controller: 'updateToDoListController'
+    controller: 'updateToDoListController',
   });
 
   // Task routes
@@ -41,13 +53,21 @@ app.config(function($stateProvider, $urlRouterProvider){
   $stateProvider.state('createTaskRoute', {
     url: '/lists/:todolistId/tasks/create/',
     templateUrl: '/static/app/templates/task/create.html',
-    controller: 'createTaskController'
+    controller: 'createTaskController',
   });
   $stateProvider.state('updateTaskRoute', {
     url: '/lists/:todolistId/tasks/update/:id/',
     templateUrl: '/static/app/templates/task/update.html',
-    controller: 'updateTaskController'
+    controller: 'updateTaskController',
   });
 
-  $urlRouterProvider.otherwise('/lists/');
+  $urlRouterProvider.otherwise('/');
+});
+
+app.run(function ($timeout, $state, authApiFactory) {
+  if (!authApiFactory.isLoggedIn()) {
+    $timeout(function(){
+      $state.go('loginRoute');
+    });
+  }
 });

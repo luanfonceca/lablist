@@ -1,13 +1,15 @@
 var app = angular.module('lablist.controllers.todolist', []);
 
 app.controller('listToDoListController', [
-  '$scope', 'toDoListApiFactory', 'SweetAlert',
-  function($scope, toDoListApiFactory, SweetAlert){
+  '$scope', '$rootScope', 'toDoListApiFactory', 'SweetAlert',
+  function($scope, $rootScope, toDoListApiFactory, SweetAlert){
     $scope.lists = [];
 
     getToDoListByIds();
     function getToDoListByIds(){
-      toDoListApiFactory.getToDoListByIds().then(function(response){
+      toDoListApiFactory.getToDoListByIds(
+        $rootScope.request_headers
+      ).then(function(response){
         $scope.lists = response.data;
       }, function (error){
         $scope.status = 'Unable to load lists: ' + error.message;
@@ -33,8 +35,8 @@ app.controller('listToDoListController', [
 );
 
 app.controller('createToDoListController',
-  ['$scope', '$location', '$state', 'toDoListApiFactory',
-  function($scope, $location, $state, toDoListApiFactory){
+  ['$scope', '$rootScope', '$state', 'toDoListApiFactory',
+  function($scope, $rootScope, $state, toDoListApiFactory){
     $scope.hasError = function(fieldName) {
       var field = $scope.todolistForm[fieldName];
       return field.$invalid && field.$dirty ? 'has-error' : '';
@@ -42,7 +44,7 @@ app.controller('createToDoListController',
 
     $scope.create = function(todolist) {
       toDoListApiFactory.createToDoList(
-        todolist
+        todolist, $rootScope.request_headers
       ).then(function(response) {
         $state.go('listToDoListRoute');
       });
@@ -51,18 +53,19 @@ app.controller('createToDoListController',
 );
 
 app.controller('updateToDoListController',
-  ['$scope', '$state', '$stateParams', '$location', 'toDoListApiFactory',
-  function($scope, $state, $stateParams, $location, toDoListApiFactory){
+  ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'toDoListApiFactory',
+  function($scope, $rootScope, $state, $stateParams, $location, toDoListApiFactory){
     $scope.hasError = function(fieldName) {
       var field = $scope.todolistForm[fieldName];
       return field.$invalid && field.$dirty ? 'has-error' : '';
     };
 
     $scope.todolist = null;
-
     getToDoListById();
     function getToDoListById(){
-      toDoListApiFactory.getToDoListById($stateParams.id).then(function(response){
+      toDoListApiFactory.getToDoListById(
+        $stateParams.id, $rootScope.request_headers
+      ).then(function(response){
         $scope.todolist = response.data;
       }, function (error){
         $scope.status = 'Unable to load list: ' + error.message;
@@ -71,7 +74,7 @@ app.controller('updateToDoListController',
 
     $scope.update = function(todolist) {
       toDoListApiFactory.updateToDoList(
-        todolist
+        todolist, $rootScope.request_headers
       ).then(function(response) {
         $state.go('listToDoListRoute');
       });
