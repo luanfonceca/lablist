@@ -1,0 +1,20 @@
+[
+{
+    "model": "oauth2_provider.application",
+    "pk": 1,
+    "fields": {
+        "client_id": "6z70ludoXQFAIGnr5pCZZxsPcawaYgRoDofPwLJs",
+        "user": [
+            "admin"
+        ],
+        "redirect_uris": "",
+        "client_type": "confidential",
+        "authorization_grant_type": "password",
+        "client_secret": "DW0RyZDu8OeSoEBP7yYseahwrkUDIei7VPDc25aNP6iv7D0QHWFGdvDTdjXbp96Z2taWqmpMNZJawf0qnMAkcZKpQpolbTEcXQ5vjIPX9Kq1wiqmk1i3gd5M5VCreawl",
+        "name": "Facebook",
+        "skip_authorization": false,
+        "created": "2017-06-28T18:45:04.596Z",
+        "updated": "2017-06-28T18:45:04.596Z"
+    }
+}
+]
