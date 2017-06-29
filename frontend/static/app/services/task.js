@@ -30,8 +30,8 @@ app.factory('taskApiFactory', ['$http', function($http){
         return response;
       });
     },
-    deleteTaskById: function(id, headers){
-      var url = urlBase + id + '/';
+    deleteTask: function(task, headers){
+      var url = urlBase + task.id + '/';
       return $http.delete(url, headers).then(function(response){
         return response;
       });

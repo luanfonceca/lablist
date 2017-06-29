@@ -31,7 +31,7 @@ app.controller('listTaskController',
       },
     };
 
-    $scope.deleteTask = function(id){
+    $scope.deleteTask = function(task){
       SweetAlert.swal({
         title: 'Are you sure?',
         text: 'Your will not be able to undo this action!',
@@ -42,9 +42,12 @@ app.controller('listTaskController',
         closeOnConfirm: true,
       }, function(isConfirm){
         if (isConfirm) {
-          taskApiFactory.deleteTaskById(
-            id, $rootScope.request_headers
-          );
+          taskApiFactory.deleteTask(
+            task, $rootScope.request_headers
+          ).then(function(response){
+            var index = $scope.tasks.indexOf(task);
+            $scope.tasks.splice(index, 1);
+          });
         }
       });
     }
