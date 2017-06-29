@@ -59,6 +59,10 @@ app.controller('listTaskController',
     }
 
     $scope.shareTask = function(todolist, task){
+      if (!task.is_done) {
+        return false;
+      }
+
       Socialshare.share({
         'provider': 'facebook',
         'attrs': {
